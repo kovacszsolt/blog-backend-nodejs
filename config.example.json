@@ -1,0 +1,20 @@
+{
+  "port": "8090",
+  "mongo_server": "mongodb://host:port",
+  "mongo_database": "database",
+  "default_user": {
+    "email": "name@domain.ltd",
+    "name": "John Doe",
+    "password": "defaultpassword"
+  },
+  "admin": {
+    "port": 8070,
+    "no_header_url": [
+      "/",
+      "session/add/"
+    ],
+    "no_user_url": [
+      "user/hello1/"
+    ]
+  }
+}

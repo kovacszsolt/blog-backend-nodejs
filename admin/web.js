@@ -1,0 +1,147 @@
+const multer = require('multer');
+const fs = require('fs-extra');
+const sessionMethod = require('./session');
+const rootMethod = require('./root');
+const userMethod = require('./user');
+const postMethod = require('./post');
+const commonMethod = require('./common');
+const mongoose = require('mongoose');
+const {Schema} = mongoose;
+
+class adminWeb {
+
+    constructor(express, bodyParser, db, config) {
+        this.express = express;
+        this.db = db;
+        this.config = config;
+        this.bodyParser = bodyParser;
+        this.init();
+        this.models();
+    }
+
+    init() {
+        fs.ensureDirSync(this.config.tmp_upload_path);
+        fs.ensureDirSync(this.config.upload_files);
+    }
+
+    models() {
+        this.sessionSchema = new Schema({
+            host: String,
+            user: Object
+        }, {timestamps: true});
+        this.sessionObject = this.db.model('session', this.sessionSchema);
+
+        this.userSchema = new Schema({
+            username: String,
+            password: String
+        }, {timestamps: true});
+        this.userObject = this.db.model('user', this.userSchema);
+
+        this.postSchema = new Schema({
+            title: String,
+            slug: String,
+            intro: String,
+            content: String,
+            file: Object
+        }, {timestamps: true});
+        this.postObject = this.db.model('post', this.postSchema);
+    }
+
+
+    start() {
+        const app = this.express();
+        var storage = multer.diskStorage({
+            destination: (req, file, cb) => {
+                cb(null, this.config.tmp_upload_path)
+            },
+            filename: (req, file, cb) => {
+                cb(null, file.fieldname + '-' + Date.now())
+            }
+        });
+
+        const upload = multer({storage: storage});
+        app.set('port', this.config.port);
+        app.use(this.bodyParser.json());
+        app.use(this.bodyParser.urlencoded({extended: true}));
+        app.use('/images', this.express.static('images'));
+        app.use((req, res, next) => {
+            res.setHeader('Access-Control-Allow-Origin', this.config.allow_origin);
+            res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+            res.setHeader("Access-Control-Allow-Headers", "*");
+            res.setHeader('Access-Control-Allow-Credentials', true);
+            next();
+        });
+
+        this.serverCheckHeader(app);
+        this.serverRoot(app);
+        this.serverUser(app);
+        this.serverSession(app);
+        this.serverPost(app, upload);
+        app.listen(app.get('port'), () => {
+            console.log('admin running on port', app.get('port'))
+        });
+    }
+
+    serverPost(app, upload) {
+        postMethod.list(app, this.postObject);
+        postMethod.add(app, this.postObject, upload, this.config);
+        postMethod.modify(app, this.postObject, upload, this.config);
+        postMethod.get(app, this.postObject);
+        commonMethod.remove(app, 'post', this.postObject);
+    }
+
+    serverUser(app) {
+        userMethod.list(app, this.userObject);
+        userMethod.init(app, this.userObject);
+        userMethod.add(app, this.userObject);
+        userMethod.modify(app, this.userObject);
+        commonMethod.remove(app, 'user', this.userObject);
+        userMethod.login(app, this.userObject, this.sessionObject);
+        userMethod.get(app, this.userObject);
+
+    }
+
+    serverSession(app) {
+        sessionMethod.add(app, this.sessionObject);
+        commonMethod.remove(app, 'session', this.sessionObject);
+    }
+
+    serverRoot(app) {
+        rootMethod.root(app);
+    }
+
+    serverCheckHeader(app) {
+        app.all('*', (req, res, next) => {
+            if (req.method === 'OPTIONS') {
+                // always allow the OPTIONS
+                next();
+            } else {
+                if (this.config.no_header_url.map(q => req.url.substr(0, q.length) === q).includes(true)) {
+                    next();
+                } else {
+                    if (req.headers.authorization === undefined) {
+                        res.status(500).send({status: 'no header authorization'});
+                    } else {
+                        this.sessionObject.findById(req.headers.authorization, (err, currentSession) => {
+                            if (err || (currentSession === null)) {
+                                res.status(500).send({status: 'wrong header authorization'});
+                            } else {
+                                if (this.config.no_user_url.includes(req.url)) {
+                                    next();
+                                } else {
+                                    if (currentSession.user === undefined) {
+                                        res.status(500).send({status: 'no user'});
+                                    } else {
+                                        next();
+                                    }
+                                }
+                            }
+                        });
+                    }
+                }
+            }
+        });
+    }
+}
+
+module.exports = adminWeb;
