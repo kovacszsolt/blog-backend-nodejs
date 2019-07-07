@@ -4,7 +4,6 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const adminWeb = require('./admin/web');
 const swaggerWeb = require('./swagger/web');
-
 mongoose.connect('mongodb://' + config.mongo_server + '/' + config.mongo_database, {useNewUrlParser: true});
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));

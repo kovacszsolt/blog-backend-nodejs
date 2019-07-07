@@ -6,23 +6,28 @@ const config = () => {
     if (fs.existsSync(ROOT + 'config.json')) {
         return require(ROOT + 'config.json');
     } else {
-        const _config = require(ROOT + 'config.example.json');
-        /*
-        _config.port = getParam('PORT');
-        _config.mongo_server = getParam('MONGOSERVER');
-        _config.mongo_database = getParam('MONGODATABASE');
-        _config.allow_origin = getParam('ALLOWORIGIN');
-        _config.admin_port = getParam('ADMIN_PORT');
+        //const _config = require(ROOT + 'config.example.json');
+        const _config = {};
+        _config.port = process.env["PORT"];
+        _config.mongo_server = process.env["MONGO_SERVER"];
+        _config.mongo_database = process.env["MONGO_DATABASE"];
+        _config.tmp_upload_path = process.env["TMP_UPLOAD_PATH"];
+        _config.upload_files = process.env["UPLOAD_FILES"];
+        _config.allow_origin = process.env["ALLOW_ORIGIN"];
+        _config.root = process.env["ROOT"];
+        _config.no_header_url = process.env["NO_HEADER_URL"];
+        _config.no_header_url = process.env["NO_USER_URL"];
 
-        Object.keys(_config).forEach((_configName) => {
-            if (_config[_configName] === '') {
-
-                util.exit('Config ERROR >>>> ' + _configName);
-            }
-        });
-         */
-        return _config;
+        _config.swagger = {};
+        _config.swagger.allow_origin = process.env["SWAGGER_ALLOW_ORIGIN"];
+        _config.swagger.schemes = process.env["SWAGGER_SCHEMES"];
+        _config.swagger.port = process.env["SWAGGER_PORT"];
+        _config.swagger.host = process.env["SWAGGER_HOST"];
+        _config.swagger.basePath = process.env["SWAGGER_BASEPATH"];
+        _config.swagger.url = process.env["SWAGGER_URL"];
+        _config.swagger.files = process.env["SWAGGER_FILES"];
     }
+    return _config;
 }
 
 const getParam = (__name, __default = '') => {
