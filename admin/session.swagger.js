@@ -1,6 +1,6 @@
 /**
  * @swagger
- * /admin/session/add/:
+ * /session/add/:
  *    get:
  *      description: Create new session for the backend methods
  *      summary: get new session Id
@@ -16,7 +16,7 @@
 
 /**
  * @swagger
- * /admin/session/list/:
+ * /session/list/:
  *    get:
  *      description: List all sessions
  *      summary: list all sessions
@@ -34,7 +34,7 @@
 
 /**
  * @swagger
- * /admin/session/{id}/:
+ * /session/{id}/:
  *    delete:
  *      summary: Delete Session
  *      tags: [Session]

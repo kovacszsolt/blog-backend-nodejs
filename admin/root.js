@@ -1,8 +1,8 @@
 /**
  * /admin/
  */
-const root = (app) => {
-    app.get('/admin/', (req, res) => {
+const root = (app, config) => {
+    app.get(config.root, (req, res) => {
         res.json({status: 'ok'});
     });
 };

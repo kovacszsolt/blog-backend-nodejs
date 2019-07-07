@@ -7,7 +7,7 @@ const fs = require('fs-extra');
  * /admin/post/save/:id/
  */
 const modify = (app, postObject, upload, config) => {
-    app.post('/admin/post/save/:id/', upload.single('image'), (req, res, next) => {
+    app.post(config.root + 'post/save/:id/', upload.single('image'), (req, res, next) => {
         postObject.findById(req.params.id, (err, result) => {
             const _originalPost = result;
             if ((result === null) || (err !== null)) {
@@ -50,8 +50,8 @@ const modify = (app, postObject, upload, config) => {
 /**
  * /admin/post/list/
  */
-const list = (app, postObject) => {
-    app.get('/admin/post/list/', (req, res) => {
+const list = (app, postObject, config) => {
+    app.get(config.root + 'post/list/', (req, res) => {
         postObject.countDocuments({}, (err, count) => {
             if (count === 0) {
                 res.json([]);
@@ -69,7 +69,7 @@ const list = (app, postObject) => {
  * /admin/post/add/
  */
 const add = (app, postObject, upload, config) => {
-    app.post('/admin/post/save/0/', upload.single('image'), (req, res, next) => {
+    app.post(config.root + 'post/save/0/', upload.single('image'), (req, res, next) => {
         console.log(Object.keys(req.body));
         if (JSON.stringify(Object.keys(req.body)) === JSON.stringify(['title', 'intro', 'content', 'image'])) {
             postObject.countDocuments({title: req.body.title}, (err, count) => {
@@ -111,8 +111,8 @@ const _add_save = (postObject, req, res, config) => {
 /**
  * /admin/post/:id/
  */
-const get = (app, postObject) => {
-    app.get('/admin/post/:id/', (req, res, next) => {
+const get = (app, postObject, config) => {
+    app.get(config.root + 'post/:id/', (req, res, next) => {
         postObject.findById(req.params.id, (err, result) => {
             if ((result === null) || (err !== null)) {
                 res.json({status: "error"});

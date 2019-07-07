@@ -1,6 +1,6 @@
 /**
  * @swagger
- * /admin/post/save/{id}/:
+ * /post/save/{id}/:
  *    post:
  *      description: Modify Post
  *      summary: Modify Post

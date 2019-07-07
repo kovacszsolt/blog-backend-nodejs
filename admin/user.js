@@ -1,8 +1,8 @@
 /**
  * /admin/user/init/
  */
-const init = (app, userObject) => {
-    app.get('/admin/user/init/', (req, res) => {
+const init = (app, userObject, config) => {
+    app.get(config.root + 'user/init/', (req, res) => {
         userObject.countDocuments({}, (err, count) => {
             if (count === 0) {
                 new userObject({
@@ -21,8 +21,8 @@ const init = (app, userObject) => {
 /**
  * /admin/user/login/
  */
-const login = (app, userCollection, sessionCollection) => {
-    app.post('/admin/user/login/', (req, res, next) => {
+const login = (app, userCollection, sessionCollection, config) => {
+    app.post(config.root + 'user/login/', (req, res, next) => {
         if (JSON.stringify(Object.keys(req.body)) === JSON.stringify(['username', 'password'])) {
             userCollection.findOne({username: req.body.username, password: req.body.password}, (err, result) => {
                 if (result === null) {
@@ -47,8 +47,8 @@ const login = (app, userCollection, sessionCollection) => {
 /**
  * /admin/user/add/
  */
-const add = (app, userObject) => {
-    app.post('/admin/user/add/', (req, res, next) => {
+const add = (app, userObject, config) => {
+    app.post(config.root + 'user/add/', (req, res, next) => {
         if (JSON.stringify(Object.keys(req.body)) === JSON.stringify(['username', 'password'])) {
             userObject.countDocuments({username: req.body.username}, (err, count) => {
                 if (count === 0) {
@@ -69,8 +69,8 @@ const add = (app, userObject) => {
 /**
  * /admin/user/:id/
  */
-const get = (app, userObject) => {
-    app.get('/admin/user/:id/', (req, res, next) => {
+const get = (app, userObject, config) => {
+    app.get(config.root + 'user/:id/', (req, res, next) => {
         userObject.findById(req.params.id, (err, result) => {
             if ((result === null) || (err !== null)) {
                 res.json({status: "error"});
@@ -89,8 +89,8 @@ const get = (app, userObject) => {
 /**
  * /admin/user/save/:id/
  */
-const modify = (app, userObject) => {
-    app.put('/admin/user/save/:id/', (req, res, next) => {
+const modify = (app, userObject, config) => {
+    app.put(config.root + 'user/save/:id/', (req, res, next) => {
         userObject.findById(req.params.id, (err, result) => {
             if ((result === null) || (err !== null)) {
                 res.json({status: "error"});
@@ -118,9 +118,9 @@ const modify = (app, userObject) => {
 /**
  * /admin/user/list/
  */
-const list = (app, userObject) => {
+const list = (app, userObject, config) => {
 
-    app.get('/admin/user/list/', (req, res) => {
+    app.get(config.root + 'user/list/', (req, res) => {
         userObject.countDocuments({}, (err, count) => {
             if (count === 0) {
                 res.json([]);

@@ -83,31 +83,31 @@ class adminWeb {
     }
 
     serverPost(app, upload) {
-        postMethod.list(app, this.postObject);
+        postMethod.list(app, this.postObject, this.config);
         postMethod.add(app, this.postObject, upload, this.config);
         postMethod.modify(app, this.postObject, upload, this.config);
-        postMethod.get(app, this.postObject);
-        commonMethod.remove(app, 'post', this.postObject);
+        postMethod.get(app, this.postObject, this.config);
+        commonMethod.remove(app, 'post', this.postObject, this.config);
     }
 
     serverUser(app) {
-        userMethod.list(app, this.userObject);
-        userMethod.init(app, this.userObject);
-        userMethod.add(app, this.userObject);
-        userMethod.modify(app, this.userObject);
-        commonMethod.remove(app, 'user', this.userObject);
-        userMethod.login(app, this.userObject, this.sessionObject);
-        userMethod.get(app, this.userObject);
+        userMethod.list(app, this.userObject, this.config);
+        userMethod.init(app, this.userObject, this.config);
+        userMethod.add(app, this.userObject, this.config);
+        userMethod.modify(app, this.userObject, this.config);
+        commonMethod.remove(app, 'user', this.userObject, this.config);
+        userMethod.login(app, this.userObject, this.sessionObject, this.config);
+        userMethod.get(app, this.userObject, this.config);
 
     }
 
     serverSession(app) {
-        sessionMethod.add(app, this.sessionObject);
-        commonMethod.remove(app, 'session', this.sessionObject);
+        sessionMethod.add(app, this.sessionObject, this.config);
+        commonMethod.remove(app, 'session', this.sessionObject, this.config);
     }
 
     serverRoot(app) {
-        rootMethod.root(app);
+        rootMethod.root(app, this.config);
     }
 
     serverCheckHeader(app) {

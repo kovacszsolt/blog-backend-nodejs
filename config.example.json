@@ -1,20 +1,30 @@
 {
   "port": "8090",
-  "mongo_server": "mongodb://host:port",
+  "mongo_server": "localhost:27017",
   "mongo_database": "database",
-  "default_user": {
-    "email": "name@domain.ltd",
-    "name": "John Doe",
-    "password": "defaultpassword"
-  },
-  "admin": {
-    "port": 8070,
-    "no_header_url": [
-      "/",
-      "session/add/"
+  "tmp_upload_path": "./tmp",
+  "upload_files": "./images",
+  "allow_origin": "*",
+  "root": "/admin/",
+  "no_header_url": [
+    "/",
+    "session/add/"
+  ],
+  "no_user_url": [
+    "user/hello1/"
+  ],
+  "swagger": {
+    "allow_origin": "*",
+    "schemes": [
+      "https",
+      "http"
     ],
-    "no_user_url": [
-      "user/hello1/"
+    "port": "8000",
+    "host": "localhost:8090",
+    "basePath": "/admin/",
+    "url": "/",
+    "files": [
+      "admin/*.swagger.js"
     ]
   }
 }

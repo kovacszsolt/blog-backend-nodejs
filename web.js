@@ -9,7 +9,7 @@ mongoose.connect('mongodb://' + config.mongo_server + '/' + config.mongo_databas
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function () {
-    const admin = new adminWeb(express, bodyParser, mongoose, config.admin);
+    const admin = new adminWeb(express, bodyParser, mongoose, config);
     admin.start();
     const swagger = new swaggerWeb(express, bodyParser, config.swagger);
     swagger.start();

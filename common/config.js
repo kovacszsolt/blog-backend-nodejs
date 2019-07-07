@@ -7,6 +7,7 @@ const config = () => {
         return require(ROOT + 'config.json');
     } else {
         const _config = require(ROOT + 'config.example.json');
+        /*
         _config.port = getParam('PORT');
         _config.mongo_server = getParam('MONGOSERVER');
         _config.mongo_database = getParam('MONGODATABASE');
@@ -19,6 +20,7 @@ const config = () => {
                 util.exit('Config ERROR >>>> ' + _configName);
             }
         });
+         */
         return _config;
     }
 }

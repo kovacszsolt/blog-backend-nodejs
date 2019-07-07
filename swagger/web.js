@@ -48,11 +48,12 @@ class swaggerWeb {
                     },
                 },
                 host: this.config.host,
-                basePath: '/',
+                schemes: this.config.schemes,
+                basePath: this.config.basePath,
                 securityDefinitions: {
                     TOKEN: {
                         type: 'apiKey',
-                        description: 'TOKEN authorization of an API - 5d0bddfbe007ae037c3f83ae',
+                        description: 'TOKEN authorization of an API',
                         name: 'Authorization',
                         in: 'header',
                     },
