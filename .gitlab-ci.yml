@@ -1,0 +1,23 @@
+cache:
+  paths:
+    - node_modules/
+
+stages:
+  - build
+
+build:
+  image: docker:latest
+  stage: build
+  services:
+    - docker:dind
+  variables:
+    DOCKER_DRIVER: overlay
+    CI_REGISTRY: registry.gitlab.com
+    CI_REGISTRY_IMAGE: registry.gitlab.com/smith.zsolt/news-backend-nodejs
+  script:
+    - echo "$REGISTRY_PASSWORD" |  docker login -u $REGISTRY_USERNAME --password-stdin
+    - docker build --pull -t "${REGISTRY_IMAGE}:latest" -f Dockerfile .
+    - docker push "${REGISTRY_IMAGE}:latest"
+  only:
+    - master
+
