@@ -26,8 +26,8 @@ const config = () => {
         _config.swagger.basePath = process.env["SWAGGER_BASEPATH"];
         _config.swagger.url = process.env["SWAGGER_URL"];
         _config.swagger.files = process.env["SWAGGER_FILES"];
+        return _config;
     }
-    return _config;
 }
 
 const getParam = (__name, __default = '') => {
