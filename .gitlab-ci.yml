@@ -4,16 +4,13 @@ cache:
 
 stages:
   - build
+  - deploy
 
 build:
   image: docker:latest
   stage: build
   services:
     - docker:dind
-  variables:
-    DOCKER_DRIVER: overlay
-    CI_REGISTRY: registry.gitlab.com
-    CI_REGISTRY_IMAGE: registry.gitlab.com/smith.zsolt/news-backend-nodejs
   script:
     - echo "$REGISTRY_PASSWORD" |  docker login -u $REGISTRY_USERNAME --password-stdin
     - docker build --pull -t "${REGISTRY_IMAGE}:latest" -f Dockerfile .
@@ -21,3 +18,13 @@ build:
   only:
     - master
 
+deploy:
+  image: alpine:latest
+  stage: deploy
+  script:
+    - apk add --update --no-cache openssh sshpass
+    - sshpass -V
+    - export SSHPASS=$DEPLOY_REMOTE_PASSWORD
+    - sshpass -e ssh -oStrictHostKeyChecking=no $DEPLOY_REMOTE_USERNAME@$DEPLOY_REMOTE_HOST '$DEPLOY_REMOTE_SCRIPT'
+  only:
+    - master
