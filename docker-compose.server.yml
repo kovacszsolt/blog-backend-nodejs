@@ -10,6 +10,9 @@ services:
   backend:
     image: kovacszsolt/blog-backend-nodejs:latest
     restart: on-failure
+    volumes:
+      - ./config.json:/home/node/app/config.json
+      - ./mail.js:/home/node/app/mail.js
     depends_on:
       - mongo
     environment:
@@ -32,9 +35,9 @@ services:
   nginx:
     image: nginx:latest
     volumes:
-      - ./:/home/node/app
       - ./nginx.conf:/etc/nginx/nginx.conf
       - ./logs/nginx/:/var/log/nginx
+      - ./userfile.password:/etc/nginx/userfile.password
     ports:
       - 8000:80
     depends_on:
