@@ -28,3 +28,4 @@ deploy:
     - sshpass -e ssh -oStrictHostKeyChecking=no $DEPLOY_REMOTE_USERNAME@$DEPLOY_REMOTE_HOST '$DEPLOY_REMOTE_SCRIPT'
   only:
     - master
+
