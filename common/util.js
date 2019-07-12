@@ -1,5 +1,6 @@
 const request = require('request');
 const fs = require('fs-extra');
+const nodemailer = require("nodemailer");
 const exit = (__message, __exit = true) => {
     console.log('-------------------------');
     console.log('-------------------------');
@@ -66,7 +67,7 @@ const getFileExtension = (file) => {
 
 const downloadFromURL = (source, target) => {
     return new Promise((resolve, reject) => {
-        console.log('source',source);
+        console.log('source', source);
         let url = source;
         if (url !== undefined) {
             if (url.substring(0, 2) === '//') {
@@ -95,6 +96,23 @@ const downloadFromURL = (source, target) => {
     });
 }
 
+const sendMail = (config, toEmail, subject, text) => {
+    nodemailer.createTransport({
+        host: config.server,
+        port: config.port,
+        secure: config.secure,
+        auth: {
+            user: config.username,
+            pass: config.password
+        }
+    }).sendMail({
+        from: '"' + config.from_name + '" <' + config.from_email + '>',
+        to: toEmail,
+        subject: subject,
+        text: text
+    });
+}
+
 
 module.exports = {
     getFileExtension,
@@ -103,5 +121,6 @@ module.exports = {
     rmDirectory,
     downloadFromURL,
     exit,
-    arrayDiff
+    arrayDiff,
+    sendMail
 };

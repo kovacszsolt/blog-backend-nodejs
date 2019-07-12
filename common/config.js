@@ -20,6 +20,7 @@ const config = () => {
         _config.no_header_url = process.env["NO_USER_URL"];
 
         _config.swagger = {};
+        _config.swagger.start = process.env["SWAGGER_START"];
         _config.swagger.allow_origin = process.env["SWAGGER_ALLOW_ORIGIN"];
         _config.swagger.schemes = process.env["SWAGGER_SCHEMES"];
         _config.swagger.port = process.env["SWAGGER_PORT"];
@@ -27,6 +28,14 @@ const config = () => {
         _config.swagger.basePath = process.env["SWAGGER_BASEPATH"];
         _config.swagger.url = process.env["SWAGGER_URL"];
         _config.swagger.files = process.env["SWAGGER_FILES"];
+
+        _config.mail = {};
+        _config.mail.server = process.env["MAIL_SERVER"];
+        _config.mail.port = process.env["MAIL_PORT"];
+        _config.mail.secure = process.env["MAIL_SECURE"];
+        _config.mail.username = process.env["MAIL_USERNAME"];
+        _config.mail.password = process.env["MAIL_PASSWORD"];
+
         return _config;
     }
 }

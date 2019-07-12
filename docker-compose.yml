@@ -9,11 +9,3 @@ services:
     ports:
       - 27017:27017
     command: mongod --smallfiles
-  server:
-    image: blog
-    volumes:
-      - ./:/home/node/app
-    environment:
-      - SZIA="hello"
-    ports:
-      - 8090:8090
