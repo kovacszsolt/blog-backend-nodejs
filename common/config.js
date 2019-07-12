@@ -7,6 +7,7 @@ const config = () => {
         return require(ROOT + 'config.json');
     } else {
         //const _config = require(ROOT + 'config.example.json');
+        console.log(process.env);
         const _config = {};
         _config.port = process.env["PORT"];
         _config.mongo_server = process.env["MONGO_SERVER"];
