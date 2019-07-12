@@ -19,4 +19,4 @@ db.once('open', function () {
         swagger.start();
     }
 });
-util.sendMail(config.mail,"smith.zsolt@gmail.com","blog-backend-nodejs-start","BLOG backend start");
+util.mailSend(config.mail,"smith.zsolt@gmail.com","blog-backend-nodejs-start","BLOG backend start");

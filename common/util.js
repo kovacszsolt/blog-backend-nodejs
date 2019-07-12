@@ -96,7 +96,7 @@ const downloadFromURL = (source, target) => {
     });
 }
 
-const sendMail = (config, toEmail, subject, text) => {
+const mailSend = (config, toEmail, subject, text) => {
     nodemailer.createTransport({
         host: config.server,
         port: config.port,
@@ -122,5 +122,5 @@ module.exports = {
     downloadFromURL,
     exit,
     arrayDiff,
-    sendMail
+    mailSend
 };
