@@ -13,7 +13,7 @@
 
 /**
  * @swagger
- * /admin/:
+ * /:
  *    get:
  *      description: Healtcheck for web service running
  *      summary: healtcheck

@@ -1,5 +1,5 @@
 /**
- * /admin/
+ * /
  */
 const root = (app, config) => {
     app.get(config.root, (req, res) => {

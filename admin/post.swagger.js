@@ -61,7 +61,7 @@
 
 /**
  * @swagger
- * /admin/post/save/0/:
+ * /post/save/0/:
  *    post:
  *      description: Add new Post
  *      summary: Add new post
@@ -112,7 +112,7 @@
 
 /**
  * @swagger
- * /admin/post/list/:
+ * /post/list/:
  *    get:
  *      description: List all posts
  *      summary: list all posts
@@ -130,7 +130,7 @@
 
 /**
  * @swagger
- * /admin/post/{id}/:
+ * /post/{id}/:
  *    get:
  *      description: Get Post
  *      summary: Get Post
@@ -160,7 +160,7 @@
 
 /**
  * @swagger
- * /admin/post/{id}/:
+ * /post/{id}/:
  *    delete:
  *      description: Delete Post
  *      summary: Delete Post

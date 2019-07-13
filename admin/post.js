@@ -4,7 +4,7 @@ const util = require('../common/util');
 const fs = require('fs-extra');
 
 /**
- * /admin/post/save/:id/
+ * /post/save/:id/
  */
 const modify = (app, postObject, upload, config) => {
     app.post(config.root + 'post/save/:id/', upload.single('image'), (req, res, next) => {
@@ -48,7 +48,7 @@ const modify = (app, postObject, upload, config) => {
 };
 
 /**
- * /admin/post/list/
+ * /post/list/
  */
 const list = (app, postObject, config) => {
     app.get(config.root + 'post/list/', (req, res) => {
@@ -66,7 +66,7 @@ const list = (app, postObject, config) => {
 };
 
 /**
- * /admin/post/add/
+ * /post/add/
  */
 const add = (app, postObject, upload, config) => {
     app.post(config.root + 'post/save/0/', upload.single('image'), (req, res, next) => {
@@ -109,7 +109,7 @@ const _add_save = (postObject, req, res, config) => {
 };
 
 /**
- * /admin/post/:id/
+ * /post/:id/
  */
 const get = (app, postObject, config) => {
     app.get(config.root + 'post/:id/', (req, res, next) => {

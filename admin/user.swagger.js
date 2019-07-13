@@ -1,6 +1,6 @@
 /**
  * @swagger
- * /admin/user/init/:
+ * /user/init/:
  *    get:
  *      description: "deafult user: smith.zsolt@gmail.com / 123"
  *      summary: Create the first user
@@ -18,7 +18,7 @@
 
 /**
  * @swagger
- * /admin/user/login/:
+ * /user/login/:
  *    post:
  *      description: Login in the Admin Area
  *      summary: User Login
@@ -54,7 +54,7 @@
 
 /**
  * @swagger
- * /admin/user/add/:
+ * /user/add/:
  *    post:
  *      summary: User Create
  *      tags: [User]
@@ -90,7 +90,7 @@
 
 /**
  * @swagger
- * /admin/user/save/{id}/:
+ * /user/save/{id}/:
  *    put:
  *      summary: Modify user
  *      tags: [User]
@@ -133,7 +133,7 @@
 
 /**
  * @swagger
- * /admin/user/list/:
+ * /user/list/:
  *    get:
  *      summary: list all user
  *      security:
@@ -150,7 +150,7 @@
 
 /**
  * @swagger
- * /admin/user/{id}/:
+ * /user/{id}/:
  *    delete:
  *      summary: Delete User
  *      tags: [User]

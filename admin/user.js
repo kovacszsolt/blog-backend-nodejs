@@ -1,5 +1,5 @@
 /**
- * /admin/user/init/
+ * /user/init/
  */
 const init = (app, userObject, config) => {
     app.get(config.root + 'user/init/', (req, res) => {
@@ -19,7 +19,7 @@ const init = (app, userObject, config) => {
 };
 
 /**
- * /admin/user/login/
+ * /user/login/
  */
 const login = (app, userCollection, sessionCollection, config) => {
     app.post(config.root + 'user/login/', (req, res, next) => {
@@ -45,7 +45,7 @@ const login = (app, userCollection, sessionCollection, config) => {
 };
 
 /**
- * /admin/user/add/
+ * /user/add/
  */
 const add = (app, userObject, config) => {
     app.post(config.root + 'user/add/', (req, res, next) => {
@@ -67,7 +67,7 @@ const add = (app, userObject, config) => {
 };
 
 /**
- * /admin/user/:id/
+ * /user/:id/
  */
 const get = (app, userObject, config) => {
     app.get(config.root + 'user/:id/', (req, res, next) => {
@@ -87,7 +87,7 @@ const get = (app, userObject, config) => {
 };
 
 /**
- * /admin/user/save/:id/
+ * /user/save/:id/
  */
 const modify = (app, userObject, config) => {
     app.put(config.root + 'user/save/:id/', (req, res, next) => {
@@ -116,7 +116,7 @@ const modify = (app, userObject, config) => {
 };
 
 /**
- * /admin/user/list/
+ * /user/list/
  */
 const list = (app, userObject, config) => {
 

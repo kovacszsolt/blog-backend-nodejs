@@ -1,6 +1,6 @@
 /**
- * /admin/session/add/
- * /admin/session/list/
+ * /session/add/
+ * /session/list/
  */
 const add = (app, sessionObject, config) => {
 
