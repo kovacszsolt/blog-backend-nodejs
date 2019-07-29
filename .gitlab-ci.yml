@@ -15,6 +15,8 @@ build:
     - echo "$REGISTRY_PASSWORD" |  docker login -u $REGISTRY_USERNAME --password-stdin
     - docker build --pull -t "${REGISTRY_IMAGE}:latest" -f Dockerfile .
     - docker push "${REGISTRY_IMAGE}:latest"
+    - docker build --pull -t "${REGISTRY_IMAGE}:dev" -f Dockerfile.dev .
+    - docker push "${REGISTRY_IMAGE}:dev"
   only:
     - master
 
