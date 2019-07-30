@@ -1,5 +1,5 @@
 FROM alpine:3.8
-RUN apk add --update nodejs nodejs-npm
+RUN apk add --update nodejs nodejs-npm openssh
 COPY ./ /home/node/app
 WORKDIR /home/node/app
 EXPOSE 8090
