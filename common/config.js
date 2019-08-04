@@ -3,11 +3,11 @@ const util = require('./util');
 const fs = require('fs');
 const ROOT = process.cwd() + '/';
 const config = () => {
-    if (fs.existsSync(ROOT + 'config.json')) {
+    if ((fs.existsSync(ROOT + 'config.json')) && false) {
+        console.log('config - file');
         return require(ROOT + 'config.json');
     } else {
-        //const _config = require(ROOT + 'config.example.json');
-        console.log(process.env);
+        console.log('config - env');
         const _config = {};
         _config.port = process.env["PORT"];
         _config.mongo_server = process.env["MONGO_SERVER"];
@@ -16,8 +16,8 @@ const config = () => {
         _config.upload_files = process.env["UPLOAD_FILES"];
         _config.allow_origin = process.env["ALLOW_ORIGIN"];
         _config.root = process.env["ROOT"];
-        _config.no_header_url = process.env["NO_HEADER_URL"];
-        _config.no_header_url = process.env["NO_USER_URL"];
+        _config.no_header_url = JSON.parse( process.env["NO_HEADER_URL"]);
+        _config.no_user_url = JSON.parse( process.env["NO_USER_URL"]);
 
         _config.swagger = {};
         _config.swagger.start = process.env["SWAGGER_START"];
@@ -30,12 +30,14 @@ const config = () => {
         _config.swagger.files = process.env["SWAGGER_FILES"];
 
         _config.mail = {};
+        _config.mail.start = process.env["MAIL_START"];
         _config.mail.server = process.env["MAIL_SERVER"];
         _config.mail.port = process.env["MAIL_PORT"];
-        _config.mail.secure = process.env["MAIL_SECURE"];
+        _config.mail.secure =Boolean( process.env["MAIL_SECURE"]);
         _config.mail.username = process.env["MAIL_USERNAME"];
         _config.mail.password = process.env["MAIL_PASSWORD"];
-
+        _config.mail.from_email = process.env["MAIL_FROM_EMAIL"];
+        _config.mail.from_name = process.env["MAIL_FROM_NAME"];
         return _config;
     }
 }
