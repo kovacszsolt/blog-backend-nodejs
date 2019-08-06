@@ -67,7 +67,6 @@ const getFileExtension = (file) => {
 
 const downloadFromURL = (source, target) => {
     return new Promise((resolve, reject) => {
-        console.log('source', source);
         let url = source;
         if (url !== undefined) {
             if (url.substring(0, 2) === '//') {

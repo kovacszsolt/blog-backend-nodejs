@@ -25,7 +25,6 @@ const modify = (app, postObject, upload, config) => {
                             }
                         }, {new: true}).then((_res) => {
                             if (req.file) {
-                                // console.log('_originalPost', _originalPost);
                                 if (_originalPost.file) {
                                     fs.removeSync(config.upload_files + _originalPost.slug + '.' + util.getFileExtension(_originalPost.file.originalname));
                                 }

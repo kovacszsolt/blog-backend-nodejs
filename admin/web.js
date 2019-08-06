@@ -116,7 +116,6 @@ class adminWeb {
                 // always allow the OPTIONS
                 next();
             } else {
-                console.log(this.config);
                 if (this.config.no_header_url.map(q => req.url.substr(0, q.length) === q).includes(true)) {
                     next();
                 } else {
