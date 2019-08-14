@@ -7,7 +7,6 @@ const fs = require('fs-extra');
  * /category/save/:id/
  */
 const modify = (app, categoryObject, upload, config) => {
-    console.log('alma');
     app.post(config.root + 'category/save/:id/', (req, res, next) => {
         categoryObject.findById(req.params.id, (err, result) => {
             const _originalCategory = result;
@@ -71,7 +70,6 @@ const list = (app, categoryObject, config) => {
  */
 const add = (app, categoryObject, upload, config) => {
     app.post(config.root + 'category/save/0/', (req, res, next) => {
-        console.log(Object.keys(req.body));
         if (JSON.stringify(Object.keys(req.body)) === JSON.stringify(['title'])) {
             categoryObject.countDocuments({title: req.body.title}, (err, count) => {
                 if (count === 0) {

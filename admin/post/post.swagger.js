@@ -88,6 +88,13 @@
  *         in: formData
  *         required: true
  *         type: string
+ *       - name: category
+ *         description: Category List
+ *         in: formData
+ *         required: false
+ *         type: array
+ *         items:
+ *          type: string
  *      required:
  *        - title
  *        - intro

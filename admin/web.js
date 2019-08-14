@@ -38,20 +38,23 @@ class adminWeb {
         }, {timestamps: true});
         this.userObject = this.db.model('user', this.userSchema);
 
+        this.categorySchema = new Schema({
+            title: String,
+            slug: String
+        }, {timestamps: true});
+        this.categoryObject = this.db.model('category', this.categorySchema);
+
         this.postSchema = new Schema({
             title: String,
             slug: String,
             intro: String,
             content: String,
+            category: [{ type: Schema.Types.ObjectId, ref: 'category' }],
             file: Object
         }, {timestamps: true});
         this.postObject = this.db.model('post', this.postSchema);
 
-        this.categorySchema = new Schema({
-            title: String,
-            slug: String
-        }, {timestamps: true});
-        this.categoryObject = this.db.model('category', this.postSchema);
+
     }
 
 
@@ -91,11 +94,11 @@ class adminWeb {
     }
 
     serverCategory(app, upload) {
-        categoryMethod.list(app, this.postObject, this.config);
-        categoryMethod.add(app, this.postObject, upload, this.config);
-        categoryMethod.modify(app, this.postObject, upload, this.config);
-        categoryMethod.get(app, this.postObject, this.config);
-        commonMethod.remove(app, 'cateory', this.postObject, this.config);
+        categoryMethod.list(app, this.categoryObject, this.config);
+        categoryMethod.add(app, this.categoryObject, upload, this.config);
+        categoryMethod.modify(app, this.categoryObject, upload, this.config);
+        categoryMethod.get(app, this.categoryObject, this.config);
+        commonMethod.remove(app, 'category', this.categoryObject, this.config);
     }
 
     serverPost(app, upload) {

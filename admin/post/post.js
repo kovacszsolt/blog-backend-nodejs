@@ -57,7 +57,7 @@ const list = (app, postObject, config) => {
             } else {
                 postObject.find({}, (error, documents) => {
                     res.json(documents);
-                });
+                }).populate('category');
             }
         });
 
@@ -70,7 +70,7 @@ const list = (app, postObject, config) => {
 const add = (app, postObject, upload, config) => {
     app.post(config.root + 'post/save/0/', upload.single('image'), (req, res, next) => {
         console.log(Object.keys(req.body));
-        if (JSON.stringify(Object.keys(req.body)) === JSON.stringify(['title', 'intro', 'content', 'image'])) {
+        if (JSON.stringify(Object.keys(req.body)) === JSON.stringify(['title', 'intro', 'content', 'category'])) {
             postObject.countDocuments({title: req.body.title}, (err, count) => {
                 if (count === 0) {
                     _add_save(postObject, req, res, config);
@@ -88,12 +88,18 @@ const add = (app, postObject, upload, config) => {
 };
 
 const _add_save = (postObject, req, res, config) => {
-    console.log('req.body', req.body);
+    let _category='';
+    try {
+         _category = JSON.parse(req.body.category);
+    } catch (e) {
+        _category = JSON.parse('[' + req.body.category + ']');
+    }
     const _slug = slug(req.body.title).toLowerCase();
     new postObject({
         title: req.body.title,
         slug: _slug,
         intro: req.body.intro,
+        category: _category,
         content: req.body.content,
         file: (req.file === undefined) ? {} : req.file
     }).save((err, newObject) => {
