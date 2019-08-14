@@ -1,9 +1,10 @@
 const multer = require('multer');
 const fs = require('fs-extra');
-const sessionMethod = require('./session');
+const sessionMethod = require('./session/session');
 const rootMethod = require('./root');
-const userMethod = require('./user');
-const postMethod = require('./post');
+const userMethod = require('./user/user');
+const postMethod = require('./post/post');
+const categoryMethod = require('./category/category');
 const commonMethod = require('./common');
 const mongoose = require('mongoose');
 const {Schema} = mongoose;
@@ -45,6 +46,12 @@ class adminWeb {
             file: Object
         }, {timestamps: true});
         this.postObject = this.db.model('post', this.postSchema);
+
+        this.categorySchema = new Schema({
+            title: String,
+            slug: String
+        }, {timestamps: true});
+        this.categoryObject = this.db.model('category', this.postSchema);
     }
 
 
@@ -77,9 +84,18 @@ class adminWeb {
         this.serverUser(app);
         this.serverSession(app);
         this.serverPost(app, upload);
+        this.serverCategory(app, upload);
         app.listen(app.get('port'), () => {
             console.log('admin running on port', app.get('port'))
         });
+    }
+
+    serverCategory(app, upload) {
+        categoryMethod.list(app, this.postObject, this.config);
+        categoryMethod.add(app, this.postObject, upload, this.config);
+        categoryMethod.modify(app, this.postObject, upload, this.config);
+        categoryMethod.get(app, this.postObject, this.config);
+        commonMethod.remove(app, 'cateory', this.postObject, this.config);
     }
 
     serverPost(app, upload) {

@@ -3,7 +3,7 @@ const util = require('./util');
 const fs = require('fs');
 const ROOT = process.cwd() + '/';
 const config = () => {
-    if ((fs.existsSync(ROOT + 'config.json')) && false) {
+    if (fs.existsSync(ROOT + 'config.json')) {
         console.log('config - file');
         return require(ROOT + 'config.json');
     } else {

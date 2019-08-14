@@ -1,6 +1,6 @@
 const slug = require('slug');
 
-const util = require('../common/util');
+const util = require('../../common/util');
 const fs = require('fs-extra');
 
 /**

@@ -9,6 +9,8 @@
  *     description: User mamagement
  *   - name: Post
  *     description: Post mamagement
+ *   - name: Category
+ *     description: Category mamagement
  */
 
 /**
